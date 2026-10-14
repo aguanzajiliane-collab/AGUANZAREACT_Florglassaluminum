@@ -1,0 +1,2 @@
+import { Navigate, Outlet } from 'react-router-dom'; import { useAuth } from '../context/AuthContext'; import { LoadingSpinner } from '../components/Ui';
+export default function ProtectedRoute({admin=false}){const {user,loading,isAdmin}=useAuth();if(loading)return <LoadingSpinner/>;if(!user)return <Navigate to="/login" replace/>;if(admin&&!isAdmin)return <Navigate to="/dashboard" replace/>;return <Outlet/>;}

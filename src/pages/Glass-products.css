@@ -1,0 +1,181 @@
+.glass-products {
+padding: 30px;
+background: #f8fafc;
+min-height: 100vh;
+color: #1e293b;
+}
+
+.glass-products h1 {
+font-size: 30px;
+margin-bottom: 8px;
+color: #163b32;
+}
+
+.glass-products p {
+color: #64748b;
+margin-bottom: 24px;
+}
+
+.glass-search {
+width: 100%;
+max-width: 420px;
+padding: 12px 15px;
+margin-bottom: 24px;
+border: 1px solid #cbd5e1;
+border-radius: 10px;
+font-size: 15px;
+outline: none;
+}
+
+.glass-search:focus {
+border-color: #16866a;
+box-shadow: 0 0 0 3px #16866a22;
+}
+
+.glass-grid {
+display: grid;
+grid-template-columns: repeat(4, minmax(0, 1fr));
+gap: 20px;
+}
+
+.glass-card {
+background: white;
+border: 1px solid #e2e8f0;
+border-radius: 14px;
+overflow: hidden;
+box-shadow: 0 3px 12px #0f172a0a;
+transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.glass-card:hover {
+transform: translateY(-4px);
+box-shadow: 0 8px 20px #0f172a14;
+}
+
+.glass-preview {
+height: 160px;
+display: flex;
+align-items: center;
+justify-content: center;
+background: #e2e8f0;
+overflow: hidden;
+}
+
+.glass-preview img {
+width: 100%;
+height: 100%;
+object-fit: cover;
+}
+
+.glass-sample {
+width: 75%;
+height: 78%;
+border-radius: 8px;
+border: 2px solid #ffffff99;
+box-shadow: inset 0 0 20px #ffffff33,
+0 5px 12px #0000001a;
+position: relative;
+overflow: hidden;
+}
+
+.glass-sample::after {
+content: "";
+position: absolute;
+top: 0;
+left: 15%;
+width: 20%;
+height: 100%;
+background: #ffffff30;
+transform: skewX(-15deg);
+}
+
+.glass-info {
+padding: 16px;
+}
+
+.glass-info h3 {
+font-size: 17px;
+margin: 0 0 8px;
+color: #1e293b;
+}
+
+.glass-info span {
+display: inline-block;
+padding: 5px 10px;
+background: #e8f5ef;
+color: #176b50;
+border-radius: 20px;
+font-size: 12px;
+font-weight: 600;
+}
+
+.glass-actions {
+display: flex;
+gap: 8px;
+margin-top: 14px;
+}
+
+.glass-actions button {
+flex: 1;
+border: none;
+padding: 9px;
+border-radius: 8px;
+cursor: pointer;
+font-size: 13px;
+}
+
+.glass-add-btn {
+background: #176b50;
+color: white;
+}
+
+.glass-delete-btn {
+background: #fee2e2;
+color: #b91c1c;
+}
+
+.glass-add-btn:hover {
+background: #11543e;
+}
+
+.glass-delete-btn:hover {
+background: #fecaca;
+}
+
+.glass-empty {
+grid-column: 1 / -1;
+text-align: center;
+padding: 40px 15px;
+color: #64748b;
+}
+
+@media (max-width: 1000px) {
+.glass-grid {
+grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+}
+
+@media (max-width: 700px) {
+.glass-products {
+padding: 20px 14px;
+}
+
+.glass-grid {
+grid-template-columns: repeat(2, minmax(0, 1fr));
+gap: 12px;
+}
+
+.glass-preview {
+height: 130px;
+}
+
+.glass-info {
+padding: 12px;
+}
+}
+
+@media (max-width: 420px) {
+.glass-grid {
+grid-template-columns: 1fr;
+}
+}
