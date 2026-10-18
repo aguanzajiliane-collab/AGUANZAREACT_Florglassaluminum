@@ -1,0 +1,4 @@
+<?php
+namespace App\Http\Controllers\Api;
+use App\Http\Controllers\Controller; use App\Models\Product; use App\Models\QuotationRequest; use App\Models\User; use Illuminate\Http\JsonResponse;
+class DashboardController extends Controller { public function __invoke(): JsonResponse { abort_unless(request()->user()->isAdmin(),403); return response()->json(['data'=>['total_customers'=>User::where('role','customer')->count(),'total_products'=>Product::count(),'pending_requests'=>QuotationRequest::where('status','pending')->count(),'quoted_requests'=>QuotationRequest::where('status','quoted')->count(),'accepted_requests'=>QuotationRequest::where('status','accepted')->count(),'completed_requests'=>QuotationRequest::where('status','completed')->count(),'sales_total'=>QuotationRequest::where('status','completed')->sum('quotation_amount')]]); } }

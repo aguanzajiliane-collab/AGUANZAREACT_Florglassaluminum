@@ -1,0 +1,3 @@
+/* Brand accents stay orange; the page canvas follows the selected theme. */
+:root{color-scheme:light;--page:#f4f6f8;--surface:#fff;--surface-muted:#edf1f5;--border:#dce3e9;--shadow:0 8px 24px #0b11170a}
+html[data-theme="dark"]{color-scheme:dark;--page:#0b1117;--surface:#131e28;--surface-muted:#1b2935;--border:#2b3b49;--text:#edf2f7;--muted:#b0bdc9;--brand:#ff6b00;--brand-dark:#ff9347;--brand-soft:#ff6b001a;--shadow:0 8px 24px #0003}

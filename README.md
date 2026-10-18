@@ -1,16 +1,45 @@
-# React + Vite
+# FlorGlassAluminum Management and Quotation System
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Flor Glass & Aluminum Works is a Villanueva, Tubigon, Bohol business providing customized glass, aluminum, steel, security, canopy, and roofing work. This app replaces informal quotation follow-up with a customer-facing request tracker and an administrator management portal.
 
-Currently, two official plugins are available:
+## Roles and features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Customers register, browse and filter services, submit multi-item quotation requests, and follow their status.
+- Administrators view database-driven dashboard and completed sales totals, manage categories/products, inspect customers and requests, search/filter requests, and move requests through Pending -> Quoted -> Accepted -> Completed (or reject Pending requests).
+- Administrators set a quotation amount when quoting; customers review and accept the quotation in their account.
+- Laravel validates and authorizes every protected operation; React hides protected screens and Axios sends Sanctum bearer tokens.
 
-## React Compiler
+## Stack and database
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Laravel 12, Sanctum, MySQL, React 19 with Vite, React Router, Axios, and Context API. Main tables: `users`, `categories`, `products`, `quotation_requests`, `quotation_request_items`, and Sanctum personal access tokens.
 
-## Expanding the Oxlint configuration
+## Setup
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+1. Create a MySQL database named `florglass_aluminum`.
+2. Copy `backend/.env.example` to `backend/.env`, then set the database credentials and run `php artisan key:generate`.
+3. In `backend`, run `composer install`, `php artisan migrate --seed`, then `php artisan serve`.
+4. Copy `frontend/.env.example` to `frontend/.env` if the backend URL differs.
+5. In `frontend`, run `npm install` then `npm run dev`.
+
+Use `npm run build` to make a production frontend build.
+
+## Demo accounts
+
+- Administrator: `admin@florglassaluminum.test` / `FlorGlass2026!`
+- Customer: `rogelio.villamor@example.test` / `Customer2026!`
+
+## API endpoints
+
+Public: `POST /api/register`, `POST /api/login`, `GET /api/categories`, `GET /api/products`, `GET /api/products/{id}`.
+
+Authenticated: `POST /api/logout`, `GET /api/user`, `GET|POST /api/quotation-requests`, `GET|PUT|DELETE /api/quotation-requests/{id}`.
+
+Administrator: `GET /api/dashboard`, category and product CRUD, `GET /api/customers`, and `PATCH /api/quotation-requests/{id}/status`. Customers accept a quote with `PATCH /api/quotation-requests/{id}/accept`.
+
+## Documentation and disclosure
+
+Supporting placeholders are in `docs/` for the ERD, screenshots, API notes, and presentation. This project was built with AI assistance for scaffolding, code explanations, and documentation; review and understand every file before presenting it as individual work.
+
+## Limitations and Phase 2
+
+The current version stores an optional image URL rather than uploading files. Phase 2 can add image uploads, email notifications, printable quotations, appointment calendars, and audit history.

@@ -1,0 +1,11 @@
+/* Feedback only: retain existing page layout and theme. */
+.form-fields{border:0;padding:0;margin:0;min-width:0}
+.field-error{display:block;margin-top:.35rem;color:#b42318;font-size:.82rem;font-weight:600;line-height:1.5}
+html[data-theme="dark"] .field .field-error{color:#ffaaa1}
+.field [aria-invalid="true"]{border-color:#c43227;outline-color:#c43227}
+button[aria-busy="true"]{cursor:wait}
+/* Keep the existing password reveal control aligned above field errors. */
+.password-field>.field{position:relative}
+.password-field>.password-toggle{top:2.1rem;transform:none}
+.password-field>.password-toggle:hover{transform:none}
+.field>input[type="checkbox"]{width:auto;display:inline-block}
