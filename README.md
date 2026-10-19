@@ -1,5 +1,7 @@
 # FlorGlassAluminum Management and Quotation System
 
+**Author:** Jiliane Aguanza
+
 Flor Glass & Aluminum Works is a Villanueva, Tubigon, Bohol business providing customized glass, aluminum, steel, security, canopy, and roofing work. This app replaces informal quotation follow-up with a customer-facing request tracker and an administrator management portal.
 
 ## Roles and features
@@ -30,11 +32,33 @@ Use `npm run build` to make a production frontend build.
 
 ## API endpoints
 
-Public: `POST /api/register`, `POST /api/login`, `GET /api/categories`, `GET /api/products`, `GET /api/products/{id}`.
+Protected endpoints require an `Authorization: Bearer {token}` header (Laravel Sanctum).
 
-Authenticated: `POST /api/logout`, `GET /api/user`, `GET|POST /api/quotation-requests`, `GET|PUT|DELETE /api/quotation-requests/{id}`.
-
-Administrator: `GET /api/dashboard`, category and product CRUD, `GET /api/customers`, and `PATCH /api/quotation-requests/{id}/status`. Customers accept a quote with `PATCH /api/quotation-requests/{id}/accept`.
+| Method | Endpoint | Access | Description |
+|---|---|---|---|
+| POST | `/api/register` | Public | Register a customer |
+| POST | `/api/login` | Public | Sign in and receive a token |
+| POST | `/api/logout` | Authenticated | Sign out |
+| GET | `/api/user` | Authenticated | View the current user |
+| GET | `/api/categories` | Public | List categories |
+| POST | `/api/categories` | Admin | Create a category |
+| GET | `/api/categories/{category}` | Admin | View a category |
+| PUT/PATCH | `/api/categories/{category}` | Admin | Update a category |
+| DELETE | `/api/categories/{category}` | Admin | Delete a category |
+| GET | `/api/products` | Public | List products |
+| GET | `/api/products/{product}` | Public | View a product |
+| POST | `/api/products` | Admin | Create a product |
+| PUT/PATCH | `/api/products/{product}` | Admin | Update a product |
+| DELETE | `/api/products/{product}` | Admin | Delete a product |
+| GET | `/api/quotation-requests` | Authenticated | List requests visible to the user |
+| POST | `/api/quotation-requests` | Authenticated | Submit a request |
+| GET | `/api/quotation-requests/{quotation_request}` | Owner or admin | View a request |
+| PUT | `/api/quotation-requests/{quotation_request}` | Authorized user | Update a request subject to ownership and status rules |
+| DELETE | `/api/quotation-requests/{quotation_request}` | Authorized user | Delete a request subject to ownership and status rules |
+| PATCH | `/api/quotation-requests/{quotation_request}/accept` | Customer owner | Accept a quoted request |
+| PATCH | `/api/quotation-requests/{quotation_request}/status` | Admin | Set quotation amount and update status |
+| GET | `/api/dashboard` | Admin | View dashboard summaries |
+| GET | `/api/customers` | Admin | List customers |
 
 ## Documentation and disclosure
 
