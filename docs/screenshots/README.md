@@ -5,20 +5,20 @@ Add captured screenshots of the login, customer request flow, and administrator 
 ## System Screenshots
 
 ### Login Page
-![LoginForm](docs/screenshots/LoginForm.png.png)
+![LoginForm](LoginForm.png.png)
 
 ### Customer Home
-![Homepagecustomer](docs/screenshots/Homepagecustomer.png.png)
+![Homepagecustomer](Homepagecustomer.png.png)
 
 ### Admin Dashboard
-![AdminDashboard](docs/screenshots/admin-dashboard.png)
+![AdminDashboard](AdminDashboard.png.png)
 
 ### Customer Quotation Management
-![Quotation](docs/screenshots/Quotation.png.png)
+![Quotation](Quotation.png.png)
 
 ### Admin Requestacceptornot
-![Requestacceptornot](docs/screenshots/Requestacceptornot.png.png)
+![Requestacceptornot](Requestacceptornot.png.png)
 
 ### Admin ProductPage
-![Productpage](docs/screenshots/Productpage.png.png)
+![Productpage](Productpage.png.png)
 

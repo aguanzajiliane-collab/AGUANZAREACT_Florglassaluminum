@@ -16,8 +16,8 @@ Laravel 12, Sanctum, MySQL, React 19 with Vite, React Router, Axios, and Context
 ## Setup
 
 1. Create a MySQL database named `florglass_aluminum`.
-2. Copy `backend/.env.example` to `backend/.env`, then set the database credentials and run `php artisan key:generate`.
-3. In `backend`, run `composer install`, `php artisan migrate --seed`, then `php artisan serve`.
+2. Copy `backend/.env.example` to `backend/.env`, then set the database credentials.
+3. In `backend`, run `composer install`, `php artisan key:generate`, `php artisan migrate --seed`, then `php artisan serve`.
 4. Copy `frontend/.env.example` to `frontend/.env` if the backend URL differs.
 5. In `frontend`, run `npm install` then `npm run dev`.
 
@@ -38,7 +38,7 @@ Administrator: `GET /api/dashboard`, category and product CRUD, `GET /api/custom
 
 ## Documentation and disclosure
 
-Supporting placeholders are in `docs/` for the ERD, screenshots, API notes, and presentation. This project was built with AI assistance for scaffolding, code explanations, and documentation; review and understand every file before presenting it as individual work.
+Supporting files in `docs/` include the ERD image, screenshots, and presentation PDF. The API endpoint summary is included above. This project was built with AI assistance for scaffolding, code explanations, and documentation; review and understand every file before presenting it as individual work.
 
 ## Limitations and Phase 2
 
