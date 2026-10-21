@@ -45,12 +45,36 @@ export function AdminDashboard() {
 }
 
 export function AdminRequests() {
-  const [loading,setLoading]=useState(true),feedback=useFormFeedback(); const [items, setItems] = useState([]); const [meta, setMeta] = useState(); const [filters, setFilters] = useDraft('admin-request-filters', { search: '', status: '' });
-  const load = async (page = 1) => { setLoading(true);try{const response = await api.get('/quotation-requests', { params: { ...filters, page } }); setItems(response.data.data); setMeta(response.data.meta);}catch(e){feedback.fail(e);}finally{setLoading(false);} };
-  useEffect(() => { load(); }, []);
-  return <section><h1>Quotation requests</h1><Alert message={feedback.error}/>{loading&&<LoadingSpinner/>}<div className="filters"><input placeholder="Search project or customer" value={filters.search} onChange={(e) => setFilters({ ...filters, search: e.target.value })} /><select value={filters.status} onChange={(e) => setFilters({ ...filters, status: e.target.value })}><option value="">All statuses</option>{['pending', 'quoted', 'accepted', 'completed', 'rejected'].map((status) => <option key={status} value={status}>{status.replace('_', ' ')}</option>)}</select><Button loading={loading} onClick={() => load()}>Filter</Button></div><div className="table-wrap"><table><thead><tr><th>ID</th><th>Customer</th><th>Project</th><th>Budget</th><th>Status</th><th /></tr></thead><tbody>{items.map((request) => <tr key={request.id}><td>#{request.id}</td><td>{request.customer.name}</td><td>{request.project_title}</td><td>PHP {request.estimated_budget}</td><td><StatusBadge status={request.status} /></td><td><Link to={`/admin/requests/${request.id}`}>Manage</Link></td></tr>)}</tbody></table></div><Pagination meta={meta} onChange={load} /></section>;
+  const [items, setItems] = useState([]), [meta, setMeta] = useState();
+  const [filters, setFilters] = useState({ search: '', status: '' });
+  const [applied, setApplied] = useState({ search: '', status: '', page: 1 });
+  const [loading, setLoading] = useState(true), [error, setError] = useState('');
+  useEffect(() => {
+    let active = true;
+    setLoading(true); setError('');
+    api.get('/quotation-requests', { params: applied })
+      .then(({ data }) => { if (active) { setItems(data.data); setMeta(data.meta); } })
+      .catch(e => { if (active) { setItems([]); setMeta(undefined); setError(errorMessage(e)); } })
+      .finally(() => { if (active) setLoading(false); });
+    return () => { active = false; };
+  }, [applied]);
+  const submit = event => { event.preventDefault(); setApplied({ search: filters.search.trim(), status: filters.status, page: 1 }); };
+  const reset = () => { setFilters({ search: '', status: '' }); setApplied({ search: '', status: '', page: 1 }); };
+  return <section><h1>Quotation requests</h1><Alert message={error} />
+    <form className="filters" onSubmit={submit}>
+      <input aria-label="Search project or customer" placeholder="Search project or customer" value={filters.search} onChange={e => setFilters({ ...filters, search: e.target.value })} />
+      <select aria-label="Request status" value={filters.status} onChange={e => setFilters({ ...filters, status: e.target.value })}>
+        <option value="">All statuses</option>{['pending', 'quoted', 'accepted', 'completed', 'rejected'].map(status => <option key={status} value={status}>{status}</option>)}
+      </select><Button type="submit" loading={loading}>Filter</Button><Button type="button" onClick={reset} disabled={loading}>Reset</Button>
+    </form>
+    <p>Search and status filters apply together. Select All statuses to search every status.</p>
+    {loading ? <LoadingSpinner /> : <><div className="table-wrap"><table>
+      <thead><tr><th>ID</th><th>Customer</th><th>Project</th><th>Budget</th><th>Status</th><th /></tr></thead>
+      <tbody>{items.map(request => <tr key={request.id}><td>#{request.id}</td><td>{request.customer?.name || 'Customer'}</td><td>{request.project_title}</td><td>PHP {request.estimated_budget}</td><td><StatusBadge status={request.status} /></td><td><Link to={`/admin/requests/${request.id}`}>Manage</Link></td></tr>)}
+        {!items.length && <tr><td colSpan={6} role="status">{error ? 'Requests could not be loaded. Try filtering again.' : applied.search || applied.status ? 'No quotation requests match your search and status. Change the filters or click Reset to view all requests.' : 'No quotation requests yet.'}</td></tr>}
+      </tbody></table></div>{!error && <Pagination meta={meta} onChange={page => setApplied({ ...applied, page })} />}</>}
+  </section>;
 }
-
 export function AdminRequestDetail(){
  const {id}=useParams(),feedback=useFormFeedback(),[request,setRequest]=useState(),[loading,setLoading]=useState(true);
  const [amount,setAmount,clearAmount]=useDraft('quotation-amount-'+id,null);
